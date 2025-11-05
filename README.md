@@ -102,12 +102,28 @@ newcodbot/
 
 ## Configuration
 
-The application can be configured by modifying these settings in `app.py`:
+The application can be configured using environment variables:
 
-- `SECRET_KEY`: Flask secret key for sessions
+- `SECRET_KEY`: Flask secret key for sessions (auto-generated if not set)
+- `FLASK_DEBUG`: Enable debug mode (`true` or `false`, default: `false`)
+- `FLASK_HOST`: Host to bind to (default: `127.0.0.1`)
+- `FLASK_PORT`: Port to run on (default: `5000`)
+
+Other settings in `app.py`:
+
 - `UPLOAD_FOLDER`: Temporary upload directory
 - `MAX_CONTENT_LENGTH`: Maximum file upload size (default: 16MB)
 - `ALLOWED_EXTENSIONS`: Allowed file extensions
+
+### Example with Environment Variables
+
+```bash
+export SECRET_KEY="your-secret-key-here"
+export FLASK_DEBUG="false"
+export FLASK_HOST="0.0.0.0"
+export FLASK_PORT="8080"
+python app.py
+```
 
 ## Processing Methods
 

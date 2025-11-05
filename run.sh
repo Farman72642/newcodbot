@@ -1,5 +1,7 @@
 #!/bin/bash
 # Simple script to run the Water Remover App
+# Usage: ./run.sh
+# Note: You may need to make this script executable first with: chmod +x run.sh
 
 echo "================================="
 echo "Water Remover App - Startup"

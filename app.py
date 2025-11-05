@@ -11,7 +11,7 @@ from PIL import Image
 import io
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24).hex())
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
@@ -47,6 +47,7 @@ def remove_watermark(image_path, method='inpaint'):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         
         # Apply threshold to detect bright watermark areas
+        # Threshold of 240 detects very bright regions typically used for watermarks
         _, mask = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
         
         # Dilate the mask to cover watermark completely
@@ -139,4 +140,9 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Get debug and host settings from environment variables
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')
+    port = int(os.environ.get('FLASK_PORT', '5000'))
+    
+    app.run(debug=debug_mode, host=host, port=port)
