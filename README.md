@@ -30,12 +30,30 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Quick Start (Alternative)
+
+You can use the provided convenience scripts:
+
+**On Linux/Mac:**
+```bash
+./run.sh
+```
+
+**On Windows:**
+```batch
+run.bat
+```
+
+These scripts will automatically create a virtual environment, install dependencies, and start the application.
+
 ## Usage
 
 1. Start the application:
 ```bash
 python app.py
 ```
+
+Or use the convenience scripts mentioned above.
 
 2. Open your web browser and navigate to:
 ```
