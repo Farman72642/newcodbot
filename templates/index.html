@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<style>
+    .upload-section {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    .upload-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .file-input-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+    
+    input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px dashed #667eea;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    input[type="file"]:hover {
+        border-color: #764ba2;
+        background: #f8f9fa;
+    }
+    
+    select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        background: white;
+        cursor: pointer;
+    }
+    
+    select:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    
+    .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        width: 100%;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn:active {
+        transform: translateY(0);
+    }
+    
+    .info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 15px;
+        margin-top: 30px;
+        border-radius: 5px;
+    }
+    
+    .info-box h3 {
+        color: #1976D2;
+        margin-bottom: 10px;
+    }
+    
+    .info-box ul {
+        margin-left: 20px;
+        color: #555;
+    }
+    
+    .info-box li {
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="upload-section">
+    <h2 style="margin-bottom: 20px; color: #333;">Upload Your Image</h2>
+    
+    <form class="upload-form" action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Select Image:</label>
+            <input type="file" id="file" name="file" accept="image/*" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="method">Processing Method:</label>
+            <select id="method" name="method">
+                <option value="inpaint">Inpaint (Recommended)</option>
+                <option value="blur">Gaussian Blur</option>
+                <option value="median">Median Filter</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn">🔧 Remove Watermark</button>
+    </form>
+</div>
+
+<div class="info-box">
+    <h3>ℹ️ How It Works</h3>
+    <ul>
+        <li><strong>Inpaint:</strong> Intelligently fills watermark areas by analyzing surrounding pixels</li>
+        <li><strong>Gaussian Blur:</strong> Smooths the image to reduce watermark visibility</li>
+        <li><strong>Median Filter:</strong> Removes noise and light watermarks</li>
+    </ul>
+    <p style="margin-top: 15px; color: #555;">
+        <strong>Supported formats:</strong> PNG, JPG, JPEG, GIF, BMP<br>
+        <strong>Maximum file size:</strong> 16MB
+    </p>
+</div>
+{% endblock %}
